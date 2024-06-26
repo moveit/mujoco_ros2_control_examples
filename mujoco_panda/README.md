@@ -20,7 +20,7 @@ source install/setup.bash
 
 Clone, build and source moveit_resources package.
 ```
-git clone https://github.com/sangteak601/moveit_resources.git -b mujoco_panda
+git clone https://github.com/sangteak601/moveit_resources.git -b mujoco_panda_position_error
 cd moveit_resources
 colcon build
 source install/setup.bash
