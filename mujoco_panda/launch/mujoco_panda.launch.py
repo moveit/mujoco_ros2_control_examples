@@ -21,7 +21,7 @@ def generate_launch_description():
         .planning_pipelines(pipelines=["ompl", "pilz_industrial_motion_planner"])
         .to_moveit_configs()
     )
-    print(moveit_config.robot_description)
+
     # Start the actual move_group node/action server
     move_group_node = Node(
         package="moveit_ros_move_group",

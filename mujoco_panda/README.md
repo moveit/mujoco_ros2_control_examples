@@ -37,12 +37,12 @@ git clone https://github.com/sangteak601/mujoco_menagerie.git -b mujoco_ros2_exa
 git clone https://github.com/sangteak601/mujoco_ros2_control_examples.git
 cd mujoco_ros2_control_examples
 # update this according to your env
-export MUJOCO_MENAGERIE_DIR=/PATH/TO/MUJOCO_MENAGERIE
 colcon build
 source install/setup.bash
 ```
 
 ### Running the MoveIt interactive marker demo
 ```
+export MUJOCO_MENAGERIE_DIR=/PATH/TO/MUJOCO_MENAGERIE
 ros2 launch mujoco_panda mujoco_panda.launch.py
 ```
