@@ -90,6 +90,12 @@ def generate_launch_description():
         arguments=["panda_hand_controller", "-c", "/controller_manager"],
     )
 
+    ft_sensor_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["force_torque_broadcaster", "-c", "/controller_manager"],
+    )
+
     return LaunchDescription(
         [
             RegisterEventHandler(
@@ -101,7 +107,7 @@ def generate_launch_description():
             RegisterEventHandler(
                 event_handler=OnProcessExit(
                     target_action=joint_state_broadcaster_spawner,
-                    on_exit=[panda_arm_controller_spawner,panda_hand_controller_spawner],
+                    on_exit=[panda_arm_controller_spawner,panda_hand_controller_spawner,ft_sensor_broadcaster_spawner],
                 )
             ),
             world2robot_tf_node,
