@@ -20,7 +20,7 @@ source install/setup.bash
 
 Clone, build and source moveit_resources package.
 ```
-git clone https://github.com/sangteak601/moveit_resources.git -b mujoco_panda_position_error
+git clone https://github.com/sangteak601/moveit_resources.git -b mujoco_peg_in_hole
 cd moveit_resources
 colcon build
 source install/setup.bash
@@ -29,20 +29,20 @@ source install/setup.bash
 3. `mujoco_menagerie`
 
 ```
-git clone https://github.com/sangteak601/mujoco_menagerie.git -b peg_in_hole
+git clone https://github.com/sangteak601/mujoco_menagerie.git -b mujoco_peg_in_hole
 ```
 
 ### Clone and build example repository
 ```
-git clone https://github.com/sangteak601/mujoco_ros2_control_examples.git
+git clone https://github.com/sangteak601/mujoco_ros2_control_examples.git -b peg_in_hole
 cd mujoco_ros2_control_examples
-# update this according to your env
 colcon build
 source install/setup.bash
 ```
 
 ### Running the MoveIt interactive marker demo
 ```
+# update this according to your env
 export MUJOCO_MENAGERIE_DIR=/PATH/TO/MUJOCO_MENAGERIE
 ros2 launch peg_in_hole peg_in_hole.launch.py
 ```
