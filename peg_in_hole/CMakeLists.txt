@@ -13,6 +13,26 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(moveit REQUIRED)
+find_package(moveit_ros_planning_interface REQUIRED)
+find_package(control_msgs REQUIRED)
+
+set(THIS_PACKAGE_DEPENDS
+  ament_cmake
+  rclcpp
+  moveit
+  moveit_ros_planning_interface
+  control_msgs
+)
+
+add_executable(controller src/controller.cpp)
+ament_target_dependencies(controller  ${THIS_PACKAGE_DEPENDS})
+
+install(TARGETS
+  controller
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 install(DIRECTORY
   launch

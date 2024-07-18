@@ -22,6 +22,34 @@ def generate_launch_description():
         .to_moveit_configs()
     )
 
+    controller_node = Node(
+        package="peg_in_hole",
+        executable="controller",
+        output="screen",
+        parameters=[
+            moveit_config.robot_description,
+            moveit_config.robot_description_semantic,
+            moveit_config.robot_description_kinematics,
+            moveit_config.joint_limits,
+            {"use_sim_time": True}
+        ],
+    )
+
+    rviz_node = Node(
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        output="log",
+        parameters=[
+            moveit_config.robot_description,
+            moveit_config.robot_description_semantic,
+            moveit_config.robot_description_kinematics,
+            moveit_config.planning_pipelines,
+            moveit_config.joint_limits,
+            {"use_sim_time": True}
+        ],
+    )
+
     # Start the actual move_group node/action server
     move_group_node = Node(
         package="moveit_ros_move_group",
@@ -96,6 +124,12 @@ def generate_launch_description():
         arguments=["force_torque_broadcaster", "-c", "/controller_manager"],
     )
 
+    admittance_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["admittance_controller", "-c", "/controller_manager"],
+    )
+
     return LaunchDescription(
         [
             RegisterEventHandler(
@@ -107,12 +141,20 @@ def generate_launch_description():
             RegisterEventHandler(
                 event_handler=OnProcessExit(
                     target_action=joint_state_broadcaster_spawner,
-                    on_exit=[panda_arm_controller_spawner,panda_hand_controller_spawner,ft_sensor_broadcaster_spawner],
+                    on_exit=[admittance_controller_spawner, panda_hand_controller_spawner,ft_sensor_broadcaster_spawner],
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=admittance_controller_spawner,
+                    on_exit=[ panda_arm_controller_spawner],
                 )
             ),
             world2robot_tf_node,
             robot_state_publisher,
             move_group_node,
-            node_mujoco_ros2_control
+            node_mujoco_ros2_control,
+            controller_node,
+            rviz_node
         ]
     )
