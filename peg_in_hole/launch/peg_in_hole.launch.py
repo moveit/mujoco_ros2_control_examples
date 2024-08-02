@@ -18,10 +18,13 @@ def generate_launch_description():
         )
         .robot_description_semantic(file_path="config/panda.srdf")
         .trajectory_execution(file_path="config/gripper_moveit_controllers.yaml")
-        .planning_pipelines(pipelines=["ompl", "pilz_industrial_motion_planner"])
+        .planning_pipelines(pipelines=["pilz_industrial_motion_planner"])
         .to_moveit_configs()
     )
 
+    move_group_capabilities = {
+        "capabilities": "pilz_industrial_motion_planner/MoveGroupSequenceAction pilz_industrial_motion_planner/MoveGroupSequenceService"
+    }
     controller_node = Node(
         package="peg_in_hole",
         executable="controller",
@@ -55,7 +58,7 @@ def generate_launch_description():
         package="moveit_ros_move_group",
         executable="move_group",
         output="screen",
-        parameters=[moveit_config.to_dict(), {"use_sim_time": True}]
+        parameters=[moveit_config.to_dict(), {"use_sim_time": True}, move_group_capabilities]
     )
 
     # Static TF
