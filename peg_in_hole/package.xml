@@ -23,6 +23,7 @@
   <exec_depend>moveit_resources_panda_description</exec_depend>
   <exec_depend>moveit_resources_panda_moveit_config</exec_depend>
   <exec_depend>moveit_simple_controller_manager</exec_depend>
+  <exec_depend>kinematics_interface_kdl</exec_depend>
   <exec_depend>position_controllers</exec_depend>
   <exec_depend>gripper_controllers</exec_depend>
   <exec_depend>admittance_controller</exec_depend>
