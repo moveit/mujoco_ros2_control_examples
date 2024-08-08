@@ -32,9 +32,9 @@ def generate_launch_description():
 
     # RViz
     rviz_config_file = os.path.join(
-        get_package_share_directory("mujoco_panda"),
+        get_package_share_directory("interactive_marker"),
         "config",
-        "mujoco_panda.rviz",
+        "interactive_marker.rviz",
     )
 
     rviz_node = Node(
@@ -112,6 +112,8 @@ def generate_launch_description():
         executable="spawner",
         arguments=["panda_hand_controller", "-c", "/controller_manager"],
     )
+    # Without spawning admittance controller, panda arm controller is not working.
+    # Admittance controller is disabled in default, so it shouldn't apply until enabled.
     admittance_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
@@ -129,7 +131,13 @@ def generate_launch_description():
             RegisterEventHandler(
                 event_handler=OnProcessExit(
                     target_action=joint_state_broadcaster_spawner,
-                    on_exit=[admittance_controller_spawner,panda_arm_controller_spawner,panda_hand_controller_spawner],
+                    on_exit=[admittance_controller_spawner,panda_hand_controller_spawner],
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=admittance_controller_spawner,
+                    on_exit=[panda_arm_controller_spawner],
                 )
             ),
             rviz_node,

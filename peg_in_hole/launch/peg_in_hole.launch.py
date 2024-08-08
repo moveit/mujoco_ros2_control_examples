@@ -38,21 +38,6 @@ def generate_launch_description():
         ],
     )
 
-    rviz_node = Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        output="log",
-        parameters=[
-            moveit_config.robot_description,
-            moveit_config.robot_description_semantic,
-            moveit_config.robot_description_kinematics,
-            moveit_config.planning_pipelines,
-            moveit_config.joint_limits,
-            {"use_sim_time": True}
-        ],
-    )
-
     # Start the actual move_group node/action server
     move_group_node = Node(
         package="moveit_ros_move_group",
@@ -150,14 +135,13 @@ def generate_launch_description():
             RegisterEventHandler(
                 event_handler=OnProcessExit(
                     target_action=admittance_controller_spawner,
-                    on_exit=[ panda_arm_controller_spawner],
+                    on_exit=[panda_arm_controller_spawner],
                 )
             ),
             world2robot_tf_node,
             robot_state_publisher,
             move_group_node,
             node_mujoco_ros2_control,
-            controller_node,
-            rviz_node
+            controller_node
         ]
     )
