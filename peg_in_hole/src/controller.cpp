@@ -82,6 +82,8 @@ int main(int argc, char** argv)
   param.name = "admittance.selected_axes";
   param.value.type = 6;
   param.value.bool_array_value = std::vector(6, false);
+  param.value.bool_array_value.at(0) = true;
+  param.value.bool_array_value.at(1) = true;
   param.value.bool_array_value.at(2) = true;
   param_request->parameters.push_back(param);
   admittance_param_client->async_send_request(param_request);

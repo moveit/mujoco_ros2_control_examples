@@ -94,7 +94,7 @@ def generate_launch_description():
         parameters=[
             moveit_config.robot_description,
             ros2_controllers_path,
-            {'mujoco_model_path':os.path.join(os.environ['MUJOCO_MENAGERIE_DIR'], 'franka_emika_panda', 'scene.xml')},
+            {'mujoco_model_path':os.path.join(get_package_share_directory('peg_in_hole'), 'models', 'franka_emika_panda', 'scene.xml')},
             {"use_sim_time": True}
         ]
     )
