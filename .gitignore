@@ -9,3 +9,6 @@ log/
 
 # mujoco log
 **/MUJOCO_LOG.TXT
+
+# ros2bag data
+rosbag2_*/
