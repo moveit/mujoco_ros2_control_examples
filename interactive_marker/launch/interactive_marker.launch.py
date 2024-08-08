@@ -86,7 +86,7 @@ def generate_launch_description():
         parameters=[
             moveit_config.robot_description,
             ros2_controllers_path,
-            {'mujoco_model_path':os.path.join(os.environ['MUJOCO_MENAGERIE_DIR'], 'franka_emika_panda', 'scene.xml')},
+            {'mujoco_model_path':os.path.join(get_package_share_directory('panda_mujoco'), 'franka_emika_panda', 'scene.xml')},
             {"use_sim_time": True}
         ]
     )
@@ -112,6 +112,11 @@ def generate_launch_description():
         executable="spawner",
         arguments=["panda_hand_controller", "-c", "/controller_manager"],
     )
+    admittance_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["admittance_controller", "-c", "/controller_manager"],
+    )
 
     return LaunchDescription(
         [
@@ -124,7 +129,7 @@ def generate_launch_description():
             RegisterEventHandler(
                 event_handler=OnProcessExit(
                     target_action=joint_state_broadcaster_spawner,
-                    on_exit=[panda_arm_controller_spawner,panda_hand_controller_spawner],
+                    on_exit=[admittance_controller_spawner,panda_arm_controller_spawner,panda_hand_controller_spawner],
                 )
             ),
             rviz_node,
