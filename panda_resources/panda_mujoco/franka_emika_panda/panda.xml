@@ -337,7 +337,7 @@
         </body>
       </body>
     </body>
-    <body name="hole" pos="0 0.5 0.01">
+    <body name="hole" pos="0.5 0. 0.01">
       <geom type="mesh" mesh="geometry_0"  rgba="1 0 0 1"/>
       <geom type="mesh" mesh="geometry_1"  rgba="1 0 0 1"/>
       <geom type="mesh" mesh="geometry_2"  rgba="1 0 0 1"/>

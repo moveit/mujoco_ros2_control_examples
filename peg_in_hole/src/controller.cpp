@@ -71,8 +71,8 @@ int main(int argc, char** argv)
   target_pose.orientation.x = -0.924;
   target_pose.orientation.y = 0.383;
   target_pose.orientation.z = 0;
-  target_pose.position.x = 0.;
-  target_pose.position.y = 0.5;
+  target_pose.position.x = 0.5;
+  target_pose.position.y = 0.0;
   target_pose.position.z = 0.35;
   move_group.setPoseTarget(target_pose);
   move_group.move();
@@ -113,14 +113,14 @@ int main(int argc, char** argv)
 
   auto item2 = item1;
   item2.req.goal_constraints.clear();
-  pose_stamped.pose.position.x = -0.005;
-  pose_stamped.pose.position.y = 0.49;
+  pose_stamped.pose.position.x = 0.49;
+  pose_stamped.pose.position.y = -0.005;
   item2.req.goal_constraints.push_back(kinematic_constraints::constructGoalConstraints(std::string("panda_link7"), pose_stamped));
 
   auto item3 = item1;
   item3.req.goal_constraints.clear();
-  pose_stamped.pose.position.x = -0.0075;
-  pose_stamped.pose.position.y = 0.475;
+  pose_stamped.pose.position.x = 0.475;
+  pose_stamped.pose.position.y = -0.0075;
   item3.req.goal_constraints.push_back(kinematic_constraints::constructGoalConstraints(std::string("panda_link7"), pose_stamped));
 
   auto service_request = std::make_shared<moveit_msgs::srv::GetMotionSequence::Request>();
