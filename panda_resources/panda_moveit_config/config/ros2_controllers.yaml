@@ -129,25 +129,25 @@ admittance_controller:
       # Having ".0" at the end is MUST, otherwise there is a loading error
       # F = M*a + D*v + S*(x - x_d)
       mass:
-        - 30.0  # x
-        - 30.0  # y
-        - 30.0  # z
-        - 30.0  # rx
-        - 30.0  # ry
-        - 30.0  # rz
+        - 8.0  # x
+        - 8.0  # y
+        - 8.0  # z
+        - 8.0  # rx
+        - 8.0  # ry
+        - 8.0  # rz
       damping_ratio:  # damping can be used instead: zeta = D / (2 * sqrt( M * S ))
-        - 0.1  # x
-        - 0.1  # y
-        - 0.1  # z
-        - 0.1  # rx
-        - 0.1  # ry
-        - 0.1  # rz
+        - 30.  # x
+        - 30.  # y
+        - 30.  # z
+        - 30.  # rx
+        - 30.  # ry
+        - 30.  # rz
       stiffness:
-        - 1.  # x
-        - 1.  # y
-        - 1.  # z
-        - 1.  # rx
-        - 1.  # ry
-        - 1.  # rz
+        - 60.  # x
+        - 60.  # y
+        - 60.  # z
+        - 60.  # rx
+        - 60.  # ry
+        - 60.  # rz
     # general settings
     enable_parameter_update_without_reactivation: true
