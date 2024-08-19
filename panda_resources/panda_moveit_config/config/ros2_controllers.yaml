@@ -1,0 +1,153 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    panda_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    panda_hand_controller:
+      type: position_controllers/GripperActionController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    force_torque_broadcaster:
+      type: force_torque_sensor_broadcaster/ForceTorqueSensorBroadcaster
+
+    admittance_controller:
+      type: admittance_controller/AdmittanceController
+
+
+panda_arm_controller:
+  ros__parameters:
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+    command_joints:
+      - admittance_controller/panda_joint1
+      - admittance_controller/panda_joint2
+      - admittance_controller/panda_joint3
+      - admittance_controller/panda_joint4
+      - admittance_controller/panda_joint5
+      - admittance_controller/panda_joint6
+      - admittance_controller/panda_joint7
+    constraints:
+      panda_joint1:
+        goal: 0.03
+        trajectory: 0.5
+      panda_joint2:
+        goal: 0.03
+        trajectory: 0.5
+      panda_joint3:
+        goal: 0.03
+        trajectory: 0.5
+      panda_joint4:
+        goal: 0.03
+        trajectory: 0.5
+      panda_joint5:
+        goal: 0.03
+        trajectory: 0.5
+      panda_joint6:
+        goal: 0.03
+        trajectory: 0.5
+      panda_joint7:
+        goal: 0.03
+        trajectory: 0.5
+
+panda_hand_controller:
+  ros__parameters:
+    joint: panda_finger_joint1
+
+force_torque_broadcaster:
+  ros__parameters:
+    frame_id: ft_sensor
+    sensor_name: ft_sensor
+
+admittance_controller:
+  ros__parameters:
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    chainable_command_interfaces:
+      - position
+      - velocity
+    kinematics:
+      plugin_name: kinematics_interface_kdl/KinematicsInterfaceKDL
+      plugin_package: kinematics_interface
+      base: panda_link0  # Assumed to be stationary
+      tip: panda_hand  # The end effector frame
+      alpha: 0.05
+    ft_sensor:
+      name: ft_sensor
+      frame:
+        id: panda_link7  # Wrench measurements are in this frame
+      filter_coefficient: 0.1
+    control:
+      frame:
+        id: panda_link7  # Admittance calcs (displacement etc) are done in this frame. Usually the tool or end-effector
+    fixed_world_frame:
+      frame:            # Gravity points down (neg. Z) in this frame (Usually: world or base_link)
+        id: panda_link0
+    gravity_compensation:
+      frame:
+        id: panda_link7
+      CoG:  # specifies the center of gravity of the end effector
+        pos:
+          - 0.0  # x
+          - 0.0  # y
+          - 0.0  # z
+        force: 15.  # mass * 9.81
+    admittance:
+      selected_axes:
+        - false  # x
+        - false  # y
+        - false  # z
+        - false  # rx
+        - false  # ry
+        - false  # rz
+      # Having ".0" at the end is MUST, otherwise there is a loading error
+      # F = M*a + D*v + S*(x - x_d)
+      mass:
+        - 8.0  # x
+        - 8.0  # y
+        - 8.0  # z
+        - 8.0  # rx
+        - 8.0  # ry
+        - 8.0  # rz
+      damping_ratio:  # damping can be used instead: zeta = D / (2 * sqrt( M * S ))
+        - 30.  # x
+        - 30.  # y
+        - 30.  # z
+        - 30.  # rx
+        - 30.  # ry
+        - 30.  # rz
+      stiffness:
+        - 60.  # x
+        - 60.  # y
+        - 60.  # z
+        - 60.  # rx
+        - 60.  # ry
+        - 60.  # rz
+    # general settings
+    enable_parameter_update_without_reactivation: true
