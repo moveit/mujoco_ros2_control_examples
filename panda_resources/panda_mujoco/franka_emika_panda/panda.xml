@@ -422,8 +422,8 @@
   </worldbody>
 
   <sensor>
-    <force name="ft_sensor_force" site="ft_sensor_site"/>
-    <torque name="ft_sensor_torque" site="ft_sensor_site"/>
+    <force name="fts_sensor_force" site="ft_sensor_site"/>
+    <torque name="fts_sensor_torque" site="ft_sensor_site"/>
   </sensor>
 
   <tendon>
