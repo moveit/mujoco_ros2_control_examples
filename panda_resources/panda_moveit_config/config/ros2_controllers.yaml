@@ -72,8 +72,8 @@ panda_hand_controller:
 
 force_torque_broadcaster:
   ros__parameters:
-    frame_id: ft_sensor
-    sensor_name: ft_sensor
+    frame_id: sensor_fts
+    sensor_name: sensor_fts
 
 admittance_controller:
   ros__parameters:
@@ -100,7 +100,7 @@ admittance_controller:
       tip: panda_hand  # The end effector frame
       alpha: 0.05
     ft_sensor:
-      name: ft_sensor
+      name: sensor_fts
       frame:
         id: panda_link7  # Wrench measurements are in this frame
       filter_coefficient: 0.1
