@@ -144,14 +144,14 @@
                   <param name="initial_value">0.0</param>
                 </state_interface>
             </joint>
-            <sensor name="ft_sensor">
+            <sensor name="sensor_fts">
               <state_interface name="force.x"/>
               <state_interface name="force.y"/>
               <state_interface name="force.z"/>
               <state_interface name="torque.x"/>
               <state_interface name="torque.y"/>
               <state_interface name="torque.z"/>
-              <param name="frame_id">ft_sensor</param>
+              <param name="frame_id">sensor_fts</param>
             </sensor>
         </ros2_control>
     </xacro:macro>
